@@ -248,9 +248,9 @@ function mathIK(x,y,zOffset){
 
 function sentAngle(leg1,leg2,leg3,leg4){
   legAngle1 = mathIK(leg1[0],leg1[1],leg1[2]);
-  legAngle2 = mathIK(leg2[0],leg1[1],leg1[2]);
-  legAngle3 = mathIK(leg3[0],leg1[1],leg1[2]);
-  legAngle4 = mathIK(leg4[0],leg1[1],leg1[2]);
+  legAngle2 = mathIK(leg2[0],leg2[1],leg2[2]);
+  legAngle3 = mathIK(leg3[0],leg3[1],leg3[2]);
+  legAngle4 = mathIK(leg4[0],leg4[1],leg4[2]);
 
   y=[legAngle1[0],legAngle2[0],legAngle3[0],legAngle4[0]];
   a=[legAngle1[1],legAngle2[1],legAngle3[1],legAngle4[1]];
