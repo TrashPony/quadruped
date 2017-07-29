@@ -23,6 +23,7 @@ int rBC=91,rFC=91,lBC=91,lFC=91,rBM=91,rFM=91,lBM=91,lFM=91,rBP=91,rFP=91,lBP=91
 
 
 void setup() {
+    Serial.begin(9600);
     rBotCenter.attach(0);
     rFrontCenter.attach(1);
     rBotMid.attach(6);
@@ -40,48 +41,33 @@ void setup() {
 }
 
 void loop() {
-  //console.log("in programm");
+  Serial.println("in programm");
   //[x,y,z],[x,y,z],[x,y,z],[x,y,z]
-  float leg1[] = {1,5,6};
-  float leg2[] = {1,5,6};
-  float leg3[] = {1,5,6};
-  float leg4[] = {1,5,6};
-  
-  sentAngle(leg1,leg2,leg3,leg4);
-  //sentAngle([1,13,6],[1,13,6],[1,13,6],[1,13,6]);
-  //sentAngle([9,9,6],[9,9,6],[9,9,6],[9,9,6]);
-  //sentAngle([13,1,6],[13,1,6],[13,1,6],[13,1,6]);
-  //sentAngle([5,1,6],[5,1,6],[5,1,6],[5,1,6]);
+  sentAngle(1,5,6, 1,5,6, 1,5,6, 1,5,6);
+  sentAngle(1,13,6, 1,13,6, 1,13,6, 1,13,6);
+  sentAngle(9,9,6, 9,9,6, 9,9,6, 9,9,6);
+  sentAngle(13,1,6, 13,1,6, 13,1,6, 13,1,6);
+  sentAngle(5,1,6, 5,1,6, 5,1,6, 5,1,6);
 }
 
-void sentAngle(float leg1[],float leg2[], float leg3[], float leg4[]){
+void sentAngle(float x, float y, float z, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4){
+  float leg1[] = {x,y,z};
+  float leg2[] = {x2,y2,z2};
+  float leg3[] = {x3,y3,z3};
+  float leg4[] = {x4,y4,z4};
   
   mathIK(leg1[0],leg1[1],leg1[2]);
   mathIK(leg2[0],leg2[1],leg2[2]);
   mathIK(leg3[0],leg3[1],leg3[2]);
   mathIK(leg4[0],leg4[1],leg4[2]);
 
-  int y[] = {int(round(leg1[0])),int(round(leg2[0])),int(round(leg3[0])),int(round(leg4[0]))};
-  int a[] = {int(round(leg1[1])),int(round(leg2[1])),int(round(leg3[1])),int(round(leg4[1]))};
-  int b[] = {int(round(leg1[2])),int(round(leg2[2])),int(round(leg3[2])),int(round(leg4[2]))};
-
-  //console.log("leg1",legAngle1);
-  //console.log("leg2",legAngle2);
-  //console.log("leg3",legAngle3);
-  //console.log("leg4",legAngle4);
-  //console.log(getTime());
-
-  writeServo(y,a,b);
-  //console.log("angle accept");
-  delay(10);  
-  
+  int yAngle[] = {int(round(leg1[0])),int(round(leg2[0])),int(round(leg3[0])),int(round(leg4[0]))};
+  int aAngle[] = {int(round(leg1[1])),int(round(leg2[1])),int(round(leg3[1])),int(round(leg4[1]))};
+  int bAngle[] = {int(round(leg1[2])),int(round(leg2[2])),int(round(leg3[2])),int(round(leg4[2]))};
+  writeServo(yAngle,aAngle,bAngle);
 }
 
-void mathIK(float x,float y, float zOffset){
-  //void getTanDeg(deg) {
-  //  float rad = deg * Math.PI/180;
-  //  return Math.tan(rad);
-  //}
+void mathIK(float &x,float &y, float &zOffset){
   ////////////константы/////////////////
   float coxa    = 4; //(длина таза в см)
   float femur   = 5; //(длина бедра в см)
